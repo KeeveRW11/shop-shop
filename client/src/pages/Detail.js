@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
+
 import { useStoreContext } from "../utils/GlobalState";
 import { UPDATE_PRODUCTS, ADD_TO_CART, UPDATE_CART_QUANTITY, REMOVE_FROM_CART } from "../utils/actions";
 import { QUERY_PRODUCTS } from '../utils/queries';
@@ -26,7 +27,7 @@ function Detail() {
     if (products.length) {
       setCurrentProduct(products.find((product) => product._id === id));
       // retrieved from server
-    } else if (data){
+    } else if (data) {
       dispatch({
         type: UPDATE_PRODUCTS,
         products: data.products,
@@ -41,7 +42,7 @@ function Detail() {
       idbPromise('products', 'get').then((indexedProducts) => {
         dispatch({
           type: UPDATE_PRODUCTS,
-          products: indexedProducts
+          products: indexedProducts,
         });
       });
     }
